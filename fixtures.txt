@@ -1,0 +1,47 @@
+Pour installer le bundle pour fixtures
+
+    - composer require orm-fixtures --dev
+
+Pour installer le bundle pour  faker
+
+    - composer require --dev fakerphp/faker
+
+créer notre fixtures dans src=>datafixtures=>Appfixtures.php
+
+
+class AppFixtures extends Fixture
+{
+
+   1.) private Generator $faker;
+    //Importer Faker\Generator
+   2.) public function __construct()
+    {
+        //Importer Faker\Generator;
+        $this->faker = Factory::create('fr_FR');
+    }
+
+
+
+    public function load(ObjectManager $manager): void
+    {
+       3.) for($i=1; $i <= mt_rand(10,25); $i++)
+       {
+        //Importer et instancié l'entitté pour créer une nouvelle table
+             $product = new Product();
+
+             //et puis faire nos set avec $this->faker
+             $product ->setTitle($this->faker->sentence(3))
+                    ->setImage($this->faker->imageUrl(640,480, 'product'))
+                    ->setPrice($this->faker->randomFloat(2,15,250));
+
+            $manager->persist($product);
+       }
+    
+        $manager->flush();
+    }
+}
+
+
+php bin/console d:f:l 
+Entrer [yes]
+Careful, database "demopanier" will be purged. Do you want to continue? (yes/no) [no]:
