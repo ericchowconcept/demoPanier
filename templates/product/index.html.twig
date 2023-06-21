@@ -10,7 +10,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <h3>{{ product.title }}</h3>
-                    <img src="{{ product.image }}" alt="" class="img-fluid">
+                    <img src="{{ asset('uploads/images/' ~ product.image) }}" alt="" class="img-fluid">
                 </div>
                 <div class="card-body">
                     <div class="text-end">{{ product.price }}</div>
